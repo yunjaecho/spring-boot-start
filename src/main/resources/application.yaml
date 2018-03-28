@@ -1,0 +1,32 @@
+spring:
+  profiles: default
+yunjae:
+  name: Cho.YunJae default
+
+  list:
+    - name: myPojo Cho.YunJae 1 default
+      descr: myPojo description 1 default
+    - name: myPojo Cho.YunJae 2 default
+      descr: myPojo description 2 default
+---
+spring:
+  profiles: prod
+yunjae:
+  name: Cho.YunJae prod
+
+  list:
+    - name: myPojo Cho.YunJae 1 prod
+      descr: myPojo description 1 prod
+    - name: myPojo Cho.YunJae 2 prod
+      descr: myPojo description 2 prod
+    - name: myPojo Cho.YunJae 3 prod
+      descr: myPojo description 3 prod
+---
+spring:
+  profiles: dev
+yunjae:
+  name: Cho.YunJae dev
+
+  list:
+    - name: myPojo Cho.YunJae 1 dev
+      descr: myPojo description 1 dev

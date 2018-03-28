@@ -1,5 +1,8 @@
 package com.yunjae.service;
 
+import com.yunjae.properties.DevBean;
+import com.yunjae.properties.MyBean;
+import com.yunjae.properties.YunjaeProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
@@ -23,7 +26,9 @@ public class HelloService {
     // application.properties 파일보다도 command line program argument 우선
     // The SPRING_APPLICATION_JSON properties can be supplied on the command line with an environment variable. For example, you could use the following line in a UN*X shell:
     // SPRING_APPLICATION_JSON='{"name" : "SPRING_APPLICATION_JSON"} java -jar  [user jar file]
-    @Value("${name}")
+    // profiles dev 활성화 VM Option : -Dspring.profiles.active=dev
+    //     spring.profiles.active Environment
+    @Value("${yunjae.name}")
     String name;
 
     // program argument 처리 예) --hello=hello --hello=world
@@ -37,6 +42,14 @@ public class HelloService {
     @Value("${random_uuid}")
     String randomUuid;
 
+    @Autowired
+    YunjaeProperties yunjaeProperties;
+
+    // profiles dev 설정하지 않으면 bean 생성되지 않음
+    @Autowired
+    //DevBean devBean;
+    MyBean myBean;
+
     public String getArgument() {
         //List<String> helloValues = arguments.getOptionValues("hello");
         //return helloValues.stream().collect(Collectors.joining(","));
@@ -44,7 +57,12 @@ public class HelloService {
     }
 
     public String getMessage() {
-        return name + "-" + randomUuid;
+        //eturn name + " - " + randomUuid;
+        return "yunjaeProperties : size " + yunjaeProperties.getList().size();
+    }
+
+    public String getProfileBean() {
+        return myBean.getMessage();
     }
 
 

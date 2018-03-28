@@ -1,14 +1,31 @@
 package com.yunjae;
 
 import com.yunjae.config.CustomApplicationLisenter;
+import com.yunjae.properties.YunjaeProperties;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.Banner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Bean;
+import org.springframework.core.env.ConfigurableEnvironment;
+import org.springframework.core.env.Environment;
+import org.springframework.core.env.StandardEnvironment;
+import org.springframework.validation.annotation.Validated;
 
 
 @SpringBootApplication
 public class Application {
+
+    // 아래와 같이 Bean 생성
+    @Bean
+    // Properties Validation
+    @Validated
+    @ConfigurationProperties("yunjae")
+    public YunjaeProperties yunjaeProperties() {
+        return new YunjaeProperties();
+    }
 
     public static void main(String[] args) {
         SpringApplication application = new SpringApplication(Application.class);
