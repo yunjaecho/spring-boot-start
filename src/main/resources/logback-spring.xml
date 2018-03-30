@@ -1,0 +1,53 @@
+<configuration>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- encoders are assigned the type
+             ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="STDOUT" />
+    </root>
+
+    <!-- Spring Profile 에 따라 설정을 다르게 지정 가능 -->
+    <!-- Profile default -->
+    <springProfile name="default">
+        <logger name="org.springframework.web" level="info"/>
+        <logger name="org.springframework.boot" level="info"/>
+    </springProfile>
+
+    <!-- Profile dev -->
+    <springProfile name="dev">
+        <logger name="org.springframework.web" level="warn"/>
+        <logger name="org.springframework.boot" level="debug"/>
+    </springProfile>
+
+    <!-- Profile prod -->
+    <springProfile name="prod">
+        <logger name="org.springframework.web" level="warn"/>
+        <logger name="org.springframework.boot" level="warn"/>
+    </springProfile>
+
+    <!--
+    26.6.2 Environment Properties (스프링 환경변수 활용하기)
+    The <springProperty> tag lets you expose properties from the Spring Environment for use within Logback.
+    Doing so can be useful if you want to access values from your application.properties file in your Logback configuration.
+    The tag works in a similar way to Logback’s standard <property> tag.
+    However, rather than specifying a direct value, you specify the source of the property (from the Environment).
+    If you need to store the property somewhere other than in local scope, you can use the scope attribute.
+    If you need a fallback value (in case the property is not set in the Environment), you can use the defaultValue attribute.
+    The following example shows how to expose properties for use within Logback:
+
+    <springProperty scope="context" name="fluentHost" source="myapp.fluentd.host"
+            defaultValue="localhost"/>
+    <appender name="FLUENT" class="ch.qos.logback.more.appenders.DataFluentAppender">
+        <remoteHost>${fluentHost}</remoteHost>
+        ...
+    </appender>
+    -->
+
+
+</configuration>
