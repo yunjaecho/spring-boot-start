@@ -1,12 +1,15 @@
 package com.yunjae.controller;
 
+import com.yunjae.domain.User;
 import com.yunjae.properties.YunjaeProperties;
 import com.yunjae.service.HelloService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.*;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.Duration;
@@ -31,10 +34,21 @@ public class HelloController {
 //    @Autowired
 //    Environment environment;
 
-    @GetMapping("/")
+    // @RestController 사용하면 @ResponseBody 생략해서 사용됨
+    // StringHttpMessageConverter  (writeInternal 디버그 테스트)
+    // Accept : application/json 하면 StringHttpMessageConverter 처리하지 않으
+    @GetMapping("/main")
     public String hello() {
         return helloService.getMessage();
     }
+
+    // HttpMessageConverter json/xml 테스트
+    @GetMapping("/user")
+    public User getUser() {
+        User user = new User("yunjae.cho", 45, 172);
+        return user;
+    }
+
 
     @GetMapping("/env")
     public Map<String, Object> getEnvironment() {

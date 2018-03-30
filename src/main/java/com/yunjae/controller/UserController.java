@@ -1,11 +1,16 @@
 package com.yunjae.controller;
 
+import com.yunjae.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.validation.Valid;
 import java.util.List;
 
 /**
@@ -36,5 +41,13 @@ public class UserController {
     public String index() {
         messageConverters.forEach(converter -> System.out.println(converter.getClass() + " :" + converter.toString()));
         return "main";
+    }
+
+    @PostMapping("/new/user")
+    public String newUserHalder(@Valid User user, BindingResult error) {
+        if (error.hasErrors()) {
+            return "users/new";
+        }
+        return "redirect/users";
     }
 }

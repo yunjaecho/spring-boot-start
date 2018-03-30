@@ -4,6 +4,7 @@ import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.GsonHttpMessageConverter;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 /**
@@ -64,17 +65,27 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
 
     /**
-     * HttpMessageConverters 추가시 WebMvcConfigurationSupport 내부 구현을 처리함
+     * Spring MVC HttpMessageConverters 추가시 WebMvcConfigurationSupport.addDefaultHttpMessageConverters 내부 구현을 처리함
+     * 방법 2
+     * Spring Boot HttpMessageConverters (HttpMessageConvertersAutoConfiguration)  제공 방법
+     *   => application.properties 설정
+     *      spring.http.converters.preferred-json-mapper=gson
      * @return
      */
-    @Bean
+    // 방법 1
+    /*@Bean
     public HttpMessageConverters customHttpMessageConverters() {
         // GsonHttpMessageConverter 추가 하기
         GsonHttpMessageConverter converter = new GsonHttpMessageConverter();
         return new HttpMessageConverters(converter);
+    }*/
+
+    /**
+     * ServletContext 요쳥에 위임 시키 리소스 추가 정의
+     * @param registry
+     */
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+
     }
-
-
-
-
 }
