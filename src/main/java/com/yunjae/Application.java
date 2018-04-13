@@ -1,5 +1,6 @@
 package com.yunjae;
 
+import com.yunjae.config.BangsongConverter;
 import com.yunjae.config.CustomApplicationLisenter;
 import com.yunjae.properties.YunjaeProperties;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +10,13 @@ import org.springframework.boot.WebApplicationType;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.convert.support.ConfigurableConversionService;
 import org.springframework.core.env.ConfigurableEnvironment;
 import org.springframework.core.env.Environment;
 import org.springframework.core.env.StandardEnvironment;
+import org.springframework.format.support.FormattingConversionService;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.support.ConfigurableWebBindingInitializer;
 
 
 @SpringBootApplication
@@ -41,8 +45,20 @@ public class Application {
         // reactive Web : WebApplicationType.REACTIVE
         application.setWebApplicationType(WebApplicationType.SERVLET);
         application.run(args);
-
-
-
 	}
+
+
+    /**
+     * Convert 추가 방식 1
+     * BangsongConverter Converter 추가
+     * @return
+     */
+//	@Bean
+//    public ConfigurableWebBindingInitializer initializer() {
+//        ConfigurableWebBindingInitializer initializer = new ConfigurableWebBindingInitializer();
+//        ConfigurableConversionService conversionService = new FormattingConversionService();
+//        conversionService.addConverter(new BangsongConverter());
+//        initializer.setConversionService(conversionService);
+//        return initializer;
+//    }
 }

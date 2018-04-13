@@ -3,7 +3,9 @@ package com.yunjae.config;
 import org.springframework.boot.autoconfigure.http.HttpMessageConverters;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.http.converter.json.GsonHttpMessageConverter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -88,4 +90,20 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
     }
+
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/bs").allowedOrigins("*");
+    }
+
+    /**
+     * Convert 추가 방식 2
+     * @param registry
+     */
+//    @Override
+//    public void addFormatters(FormatterRegistry registry) {
+//        registry.addConverter(new BangsongConverter());
+//    }
+
+
 }
